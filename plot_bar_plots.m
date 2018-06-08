@@ -5,7 +5,6 @@ if ~isdeployed
     addpath(genpath('/home/giulia/brlife/git/encode'))
     addpath(genpath('/home/giulia/brlife/git/vistasoft'))
     addpath(genpath('/home/giulia/brlife/git/jsonlab'))
-
     addpath(genpath('/home/giulia/brlife/git/mba'))
     addpath(genpath('/home/giulia/brlife/git/wma'))
 end
