@@ -14,28 +14,21 @@ config = loadjson('config.json');
 load(fullfile(config.segmentation));
 tracts = fg_classified;
 
-dan_idx = [38, 39, 40, 41, 42, 43, 44, 45];
+if length(tracts) == 20
+    disp('AFQ segmentation selected. The plots of the following tracts will be returned:')
+    disp('Left and Rigth Corticospinal, Left and Right IFOF, Left and Right SLF, Left and Right Arcuate.')
+    tr_idx = [3, 4, 11, 12, 15, 16, 19, 20];
+else
+    disp('Wma segmentation selected. The plots of the following tracts will be returned:')
+    disp('Left and Rigth pArc, Left and Rigth TPC, Left and Rigth MdLF-SPL, Left and Rigth MdLF-Ang.')
+    tr_idx = [38, 39, 40, 41, 42, 43, 44, 45];
+end    
+    
 step_size = 0.2;
-
-tract_info = cell(8, 2);
-fibercounts = zeros(1, 8);
 possible_error = 0;
 
 num_left_tracts = 4;
 num_right_tracts = 4;
-
-% for i = 38 : 45
-%     name = tracts(i).name;
-%     num_fibers = length(tracts(i).fibers);
-%     
-%     fibercounts(i) = num_fibers;
-%     tract_info{i,1} = name;
-%     tract_info{i,2} = num_fibers;
-%     
-%     if num_fibers < 20
-%         possible_error = 1;
-%     end
-% end
 
 left_tract_xs = cell(1, num_left_tracts);
 right_tract_xs = cell(1, num_right_tracts);
@@ -52,7 +45,7 @@ right_tract_ys2 = zeros([1, num_right_tracts]);
 left_tract_idx = 1;
 right_tract_idx = 1;
 
-for i = 38 : 45
+for i = tr_idx
     name = tracts(i).name;
     num_fibers = length(tracts(i).fibers);
     basename = name;
@@ -92,10 +85,6 @@ for i = 38 : 45
         left_tract_idx = left_tract_idx + 1;
     end
 end
-
-% T = cell2table(tract_info);
-% T.Properties.VariableNames = {'Tracts', 'FiberCount'};
-% writetable(T, 'output_fibercounts.txt');
 
 %number of fibers graph
 barplot = struct;
