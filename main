@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS -k o
+#PBS -l nodes=1:ppn=1,walltime=0:30:00
+
+## modules
+echo "Loading modules"
+module unload matlab
+module load matlab/2017a
+echo "Finished loading modules"
+
+echo "Compute tract measures"
+matlab -nosplash -nodisplay -r plot_bar_plot
+ret=$?
+if [ ! $ret -eq 0 ]; then
+	echo "Computation failed"
+	echo $ret > finished
+	exit $ret
+fi
