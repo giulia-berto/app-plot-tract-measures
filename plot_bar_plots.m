@@ -44,6 +44,10 @@ right_tract_ys2 = zeros([1, num_right_tracts]);
 left_tract_idx = 1;
 right_tract_idx = 1;
 
+%write on txt file
+fileID = fopen('output_counts.txt', 'w');
+fprintf(fileID, '%12s %12s %12s\n', 'num_str', 'num_nodes', 'avg_str_len');
+
 for i = tr_idx
     name = tracts(i).name;
     num_fibers = length(tracts(i).fibers);
@@ -55,6 +59,9 @@ for i = tr_idx
     end 
     tot_fiber_len = step_size * (num_nodes - num_fibers);
     avg_fiber_len = tot_fiber_len / num_fibers;
+
+    line = [num_fibers; num_nodes; avg_fiber_len];
+    fprintf(fileID, '%12s %12s %12s\n', line);
     
     if startsWith(basename, 'Right ')
         basename = extractAfter(basename, 6);
@@ -84,6 +91,8 @@ for i = tr_idx
         left_tract_idx = left_tract_idx + 1;
     end
 end
+
+fclose(fileID);
 
 %number of fibers graph
 barplot = struct;
