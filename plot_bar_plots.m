@@ -93,6 +93,7 @@ for i = tr_idx
 end
 
 fclose(fileID);
+save(fileID);
 
 %number of fibers graph
 barplot = struct;
