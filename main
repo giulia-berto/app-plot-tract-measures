@@ -19,3 +19,4 @@ fi
 
 subjID=`jq -r '._inputs[0].meta.subject' config.json`
 mv output_counts.txt $subjID'_output_counts.txt'
+mv output_counts.mat $subjID'_output_counts.mat'
