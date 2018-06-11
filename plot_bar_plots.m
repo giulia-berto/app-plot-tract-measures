@@ -61,7 +61,7 @@ for i = tr_idx
     avg_fiber_len = tot_fiber_len / num_fibers;
 
     line = [num_fibers; num_nodes; avg_fiber_len];
-    fprintf(fileID, '%12s %12s %12s\n', line);
+    fprintf(fileID, '%12i %12i %12f\n', line);
     
     if startsWith(basename, 'Right ')
         basename = extractAfter(basename, 6);
@@ -93,7 +93,6 @@ for i = tr_idx
 end
 
 fclose(fileID);
-save('output_counts.txt', fileID);
 
 %number of fibers graph
 barplot = struct;
