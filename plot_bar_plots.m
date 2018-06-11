@@ -2,11 +2,11 @@ function plot_bar_plots()
 
 if ~isdeployed
     disp('loading paths')
-    addpath(genpath('/home/giulia/brlife/git/encode'))
-    addpath(genpath('/home/giulia/brlife/git/vistasoft'))
-    addpath(genpath('/home/giulia/brlife/git/jsonlab'))
-    addpath(genpath('/home/giulia/brlife/git/mba'))
-    addpath(genpath('/home/giulia/brlife/git/wma'))
+    addpath(genpath('/N/u/brlife/git/encode'))
+    addpath(genpath('/N/u/brlife/git/vistasoft'))
+    addpath(genpath('/N/u/brlife/git/jsonlab'))
+    addpath(genpath('/N/u/brlife/git/mba'))
+    addpath(genpath('/N/u/brlife/git/wma'))
 end
 
 config = loadjson('config.json');
