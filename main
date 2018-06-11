@@ -16,3 +16,6 @@ if [ ! $ret -eq 0 ]; then
 	echo $ret > finished
 	exit $ret
 fi
+
+subjID=`jq -r '._inputs[0].meta.subject' config.json`
+mv output_counts.txt $subjID'_output_counts.txt'
