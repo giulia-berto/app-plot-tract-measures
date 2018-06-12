@@ -17,10 +17,12 @@ if length(tracts) == 20
     disp('AFQ segmentation selected. The plots of the following tracts will be returned:')
     disp('Left and Rigth Corticospinal, Left and Right IFOF, Left and Right SLF, Left and Right Arcuate.')
     tr_idx = [3, 4, 11, 12, 15, 16, 19, 20];
+    tag = 'afq';
 else
     disp('Wma segmentation selected. The plots of the following tracts will be returned:')
     disp('Left and Rigth pArc, Left and Rigth TPC, Left and Rigth MdLF-SPL, Left and Rigth MdLF-Ang.')
     tr_idx = [38, 39, 40, 41, 42, 43, 44, 45];
+    tag = 'wma';
 end    
     
 step_size = 0.2;
@@ -45,7 +47,7 @@ left_tract_idx = 1;
 right_tract_idx = 1;
 
 %write on txt file
-fileID = fopen('output_counts.txt', 'w');
+fileID = fopen(strcat(tag, '_output_counts.txt'), 'w');
 fprintf(fileID, '%12s %12s %12s\n', 'num_str', 'num_nodes', 'avg_str_len');
 
 %write on mat file
@@ -102,7 +104,7 @@ for i = tr_idx
 end
 
 fclose(fileID);
-save('output_counts.mat', 'output_counts');
+save(strcat(tag, '_output_counts.mat'), 'output_counts') 
 
 %number of fibers graph
 barplot = struct;
