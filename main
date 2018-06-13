@@ -18,5 +18,5 @@ if [ ! $ret -eq 0 ]; then
 fi
 
 subjID=`jq -r '._inputs[0].meta.subject' config.json`
-mv output_counts.txt $subjID'_output_counts.txt'
-mv output_counts.mat $subjID'_output_counts.mat'
+for filename in *output_counts.txt; do mv $filename $subjID'_'$filename; done;
+for filename in *output_counts.mat; do mv $filename $subjID'_'$filename; done;
