@@ -169,7 +169,7 @@ barplot1.layout = barlayout;
 %number of nodes graph
 barplot2 = struct;
 barplot2.type = 'plotly';
-barplot2.name = 'Number of Nodes';
+barplot2.name = 'Average length';
 
 bar5 = struct;
 bar5.x = left_tract_xs;
