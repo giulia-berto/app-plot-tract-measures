@@ -15,8 +15,8 @@ tracts = fg_classified;
 
 if length(tracts) == 20
     disp('AFQ segmentation selected. The plots of the following tracts will be returned:')
-    disp('Left and Rigth Corticospinal, Left and Right IFOF, Left and Right SLF, Left and Right Arcuate.')
-    tr_idx = [3, 4, 11, 12, 15, 16, 19, 20];
+    disp('Left and Right Thalamic Radiation, Left and Rigth Corticospinal, Left and Right IFOF, Left and Right Arcuate.')
+    tr_idx = [1, 2, 3, 4, 11, 12, 19, 20];
     tag = 'afq';
 else
     disp('Wma segmentation selected. The plots of the following tracts will be returned:')
