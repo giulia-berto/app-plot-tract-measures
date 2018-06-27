@@ -6,9 +6,10 @@
 echo "Loading modules"
 module unload matlab
 module load matlab/2017a
-echo "Finished loading modules"
+module unload python
+module load dipy/dev
 
-echo "Compute tract measures"
+echo "Compute #streamlines, #nodes and average streamlines length"
 matlab -nosplash -nodisplay -r plot_bar_plots
 ret=$?
 if [ ! $ret -eq 0 ]; then
@@ -20,3 +21,28 @@ fi
 subjID=`jq -r '._inputs[0].meta.subject' config.json`
 for filename in *output_counts.txt; do mv $filename $subjID'_'$filename; done;
 for filename in *output_counts.mat; do mv $filename $subjID'_'$filename; done;
+
+echo "AFQ conversion to trk"
+matlab -nosplash -nodisplay -r "afqConverter1()"
+ret=$?
+	if [ ! $ret -eq 0 ]; then
+		echo "AFQ conversion failed"
+		echo $ret > finished
+		exit $ret
+	fi
+
+echo "Compute volume and curvature"
+python compute_volume_and_curvature.py -bundle bundle_filename -list tract_name_list.txt; 
+	
+mv result.npy ${subjID}'_'${base_name/tract/$array_filename}'_'$run'.npy'
+
+
+if [ -f '.npy' ]; then 
+    echo "Table created."
+else 
+	echo "Table missing."
+	exit 1
+fi
+
+echo "Complete"
+

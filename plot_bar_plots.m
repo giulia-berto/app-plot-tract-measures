@@ -25,7 +25,7 @@ else
     tag = 'wma';
 end    
     
-step_size = 0.2;
+step_size = config.step_size;
 possible_error = 0;
 
 num_left_tracts = 4;
