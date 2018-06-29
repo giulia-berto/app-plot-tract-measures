@@ -6,6 +6,7 @@ import nibabel as nib
 from nibabel.streamlines import load
 import numpy as np
 import dipy
+import scipy
 from dipy.tracking.vox2track import streamline_mapping
 from dipy.tracking.streamline import length, set_number_of_points
 from dipy.tracking import metrics as tm
