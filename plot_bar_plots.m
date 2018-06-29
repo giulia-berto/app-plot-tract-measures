@@ -26,6 +26,7 @@ else
 end    
     
 step_size = config.step_size;
+coeff = step_size / 0.2;
 possible_error = 0;
 
 num_left_tracts = 4;
@@ -60,9 +61,8 @@ for i = tr_idx
     basename = name;
     
     num_nodes = 0;
-    coeff = step_size / 0.2;
     for j = 1 : num_fibers
-        tmp = length(tracts(i).fibers{j,1})
+        tmp = length(tracts(i).fibers{j,1});
         num_nodes = num_nodes + floor(tmp/coeff);  
     end 
     tot_fiber_len = step_size * (num_nodes - num_fibers);
