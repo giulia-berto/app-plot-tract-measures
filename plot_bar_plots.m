@@ -60,8 +60,10 @@ for i = tr_idx
     basename = name;
     
     num_nodes = 0;
+    coeff = step_size / 0.2;
     for j = 1 : num_fibers
-        num_nodes = num_nodes + length(tracts(i).fibers{j,1});  
+        tmp = length(tracts(i).fibers{j,1})
+        num_nodes = num_nodes + floor(tmp/coeff);  
     end 
     tot_fiber_len = step_size * (num_nodes - num_fibers);
     avg_fiber_len = tot_fiber_len / num_fibers;
