@@ -23,11 +23,13 @@ def compute_volume(bundle):
 	return vol_bundle
 
 
-def compute_mean_bundle_curvature(bundle):
-	"""Compute the mean scalar curvature of a bundle.
+def compute_mean_bundle_curvature(bundle, nb_points=200):
+	"""Compute the mean scalar curvature of a bundle using tm.mean(curvature).
 	"""
-	mean_st_curvature = np.zeros(len(bundle))
-	for i, sa in enumerate(bundle):
+	bundle_res = np.array([set_number_of_points(st, nb_points=nb_points)
+                               for st in bundle])
+	mean_st_curvature = np.zeros(len(bundle_res))
+	for i, sa in enumerate(bundle_res):
 		m=tm.mean_curvature(sa)
 		mean_st_curvature[i] = m	
 	mean_bundle_curvature = np.mean(mean_st_curvature)   
