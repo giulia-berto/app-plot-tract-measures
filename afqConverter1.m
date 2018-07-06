@@ -21,7 +21,7 @@ if length(fg_classified) == 20
     disp('Left and Right Thalamic Radiation, Left and Rigth Corticospinal, Left and Right IFOF, Left and Right Arcuate.')
     for tract = [1, 2, 3, 4, 11, 12, 19, 20]
 	tract_name=strrep(fg_classified(tract).name,' ','_');
-        write_fg_to_trk(fg_classified(tract),ref_src,sprintf('%s_tract.trk',tract_name));
+        write_fg_to_trk_shift(fg_classified(tract),ref_src,sprintf('%s_tract.trk',tract_name));
         fprintf(fid, [tract_name, '\n']);
     end
 
@@ -30,7 +30,7 @@ elseif length(fg_classified) == 79
     disp('Left and Rigth pArc, Left and Rigth TPC, Left and Rigth MdLF-SPL, Left and Rigth MdLF-Ang.')
     for tract = [38, 39, 40, 41, 42, 43, 44, 45]
 	tract_name=strrep(fg_classified(tract).name,' ','_');
-        write_fg_to_trk(fg_classified(tract),ref_src,sprintf('%s_tract.trk',tract_name));
+        write_fg_to_trk_shift(fg_classified(tract),ref_src,sprintf('%s_tract.trk',tract_name));
         fprintf(fid, [tract_name, '\n']);
     end
 end
