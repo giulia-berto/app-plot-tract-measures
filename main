@@ -3,14 +3,15 @@
 #PBS -l nodes=1:ppn=1,walltime=0:30:00
 
 ## modules
-echo "Loading modules"
-module unload matlab
-module load matlab/2017a
-module unload python
-module load dipy/dev
+#echo "Loading modules"
+#module unload matlab
+#module load matlab/2017a
+#module unload python
+#module load dipy/dev
 
 echo "Compute #streamlines, #nodes and average streamlines length"
-matlab -nosplash -nodisplay -r plot_bar_plots
+#matlab -nosplash -nodisplay -r plot_bar_plots
+singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/plot_bar_plots
 ret=$?
 if [ ! $ret -eq 0 ]; then
 	echo "Computation failed"
@@ -24,7 +25,8 @@ for filename in *output_counts.mat; do mv $filename $subjID'_'$filename; done;
 tag=${filename:0:3}
 
 echo "AFQ conversion to trk"
-matlab -nosplash -nodisplay -r "afqConverter1()"
+#matlab -nosplash -nodisplay -r "afqConverter1()"
+singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/afqConverter1
 ret=$?
 	if [ ! $ret -eq 0 ]; then
 		echo "AFQ conversion failed"
@@ -33,7 +35,8 @@ ret=$?
 	fi
 
 echo "Compute volume and curvature"
-python compute_volume_and_curvature.py -list tract_name_list.txt; 
+#python compute_volume_and_curvature.py -list tract_name_list.txt; 
+singularity exec -e docker://brainlife/dipy:0.14 python ./compute_volume_and_curvature.py -list tract_name_list.txt
 if [ -f 'tract_measures.npy' ]; then 
     echo "Table created."
 else 
