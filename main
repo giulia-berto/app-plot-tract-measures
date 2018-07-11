@@ -11,7 +11,7 @@
 
 echo "Compute #streamlines, #nodes and average streamlines length"
 #matlab -nosplash -nodisplay -r plot_bar_plots
-singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/plot_bar_plots
+singularity exec docker://brainlife/mcr:neurodebian1604-r2017a bash -c "./compiled/plot_bar_plots && ./compiled/afqConverter1"
 ret=$?
 if [ ! $ret -eq 0 ]; then
 	echo "Computation failed"
@@ -24,15 +24,15 @@ for filename in *output_counts.txt; do mv $filename $subjID'_'$filename; done;
 for filename in *output_counts.mat; do mv $filename $subjID'_'$filename; done;
 tag=${filename:0:3}
 
-echo "AFQ conversion to trk"
+#echo "AFQ conversion to trk"
 #matlab -nosplash -nodisplay -r "afqConverter1()"
-singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/afqConverter1
-ret=$?
-	if [ ! $ret -eq 0 ]; then
-		echo "AFQ conversion failed"
-		echo $ret > finished
-		exit $ret
-	fi
+#singularity exec docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/afqConverter1
+#ret=$?
+#	if [ ! $ret -eq 0 ]; then
+#		echo "AFQ conversion failed"
+#		echo $ret > finished
+#		exit $ret
+#	fi
 
 echo "Compute volume and curvature"
 #python compute_volume_and_curvature.py -list tract_name_list.txt; 
