@@ -16,23 +16,20 @@ disp('Converting afq to .trk');
 load(fullfile(config.segmentation));
 fid=fopen('tract_name_list.txt', 'w');
 
-if length(fg_classified) == 20
-    disp('AFQ segmentation selected. The following tracts will be returned:')
-    disp('Left and Right Thalamic Radiation, Left and Rigth Corticospinal, Left and Right IFOF, Left and Right Arcuate.')
-    for tract = [1, 2, 3, 4, 11, 12, 19, 20]
-	tract_name=strrep(fg_classified(tract).name,' ','_');
+if (config.tract1 > 0)
+    for tract = [config.tract1, config.tract2, config.tract3, config.tract4, config.tract5, config.tract6, config.tract7, config.tract8]
+        if (tract > 0)
+            tract_name=strrep(fg_classified(tract).name,' ','_');
+            write_fg_to_trk_shift(fg_classified(tract),ref_src,sprintf('%s_tract.trk',tract_name));
+            fprintf(fid, [tract_name, '\n']);
+        end    
+    end
+else
+    for tract=1:length(fg_classified)
+        tract_name=strrep(fg_classified(tract).name,' ','_');
         write_fg_to_trk_shift(fg_classified(tract),ref_src,sprintf('%s_tract.trk',tract_name));
         fprintf(fid, [tract_name, '\n']);
-    end
-
-elseif length(fg_classified) == 79
-    disp('Wma segmentation selected. The following tracts will be returned:')
-    disp('Left and Rigth pArc, Left and Rigth TPC, Left and Rigth MdLF-SPL, Left and Rigth MdLF-Ang.')
-    for tract = [38, 39, 40, 41, 42, 43, 44, 45]
-	tract_name=strrep(fg_classified(tract).name,' ','_');
-        write_fg_to_trk_shift(fg_classified(tract),ref_src,sprintf('%s_tract.trk',tract_name));
-        fprintf(fid, [tract_name, '\n']);
-    end
+    end 
 end
  
 

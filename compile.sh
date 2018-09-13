@@ -13,9 +13,9 @@ addpath(genpath('/N/u/brlife/git/o3d-code'));
 addpath(genpath('/N/u/brlife/git/encode'));
 addpath(genpath('/N/u/brlife/git/mba'))
 addpath(genpath('/N/u/brlife/git/wma'))
-mcc -m -R -nodisplay -d compiled plot_bar_plots
+%mcc -m -R -nodisplay -d compiled plot_bar_plots
 mcc -m -R -nodisplay -d compiled afqConverter1
-mcc -m -R -nodisplay -d compiled write_fg_to_trk_shift
+%mcc -m -R -nodisplay -d compiled write_fg_to_trk_shift
 exit
 END
 matlab -nodisplay -nosplash -r build && rm build.m
