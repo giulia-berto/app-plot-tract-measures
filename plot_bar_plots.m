@@ -11,19 +11,8 @@ end
 
 config = loadjson('config.json');
 load(fullfile(config.segmentation));
-tracts = fg_classified;
-
-if length(tracts) == 20
-    disp('AFQ segmentation selected. The plots of the following tracts will be returned:')
-    disp('Left and Right Thalamic Radiation, Left and Rigth Corticospinal, Left and Right IFOF, Left and Right Arcuate.')
-    tr_idx = [1, 2, 3, 4, 11, 12, 19, 20];
-    tag = 'afq';
-else
-    disp('Wma segmentation selected. The plots of the following tracts will be returned:')
-    disp('Left and Rigth pArc, Left and Rigth TPC, Left and Rigth MdLF-SPL, Left and Rigth MdLF-Ang.')
-    tr_idx = [38, 39, 40, 41, 42, 43, 44, 45];
-    tag = 'wma';
-end    
+tracts = fg_classified; 
+tag=config.run;
     
 step_size = config.step_size;
 coeff = step_size / 0.2;
@@ -52,11 +41,15 @@ fileID = fopen(strcat(tag, '_output_counts.txt'), 'w');
 fprintf(fileID, '%12s %12s %12s\n', 'num_str', 'num_nodes', 'avg_str_len');
 
 %write on mat file
-output_counts = zeros(length(tr_idx), 3);
-num_iter=0;
+output_counts = zeros(1, 3);
 
-for i = tr_idx
-    name = tracts(i).name;
+fid = fopen('tract_name_list.txt');
+tline = fgetl(fid);
+i=1;
+
+while ischar(tline)
+    disp(tline);
+    name=strrep(tline,'_',' ');
     num_fibers = length(tracts(i).fibers);
     basename = name;
     
@@ -71,10 +64,9 @@ for i = tr_idx
     line = [num_fibers; num_nodes; avg_fiber_len];
     fprintf(fileID, '%12i %12i %12f\n', line);
 
-    num_iter=num_iter+1;
-    output_counts(num_iter,1) = num_fibers;
-    output_counts(num_iter,2) = num_nodes;
-    output_counts(num_iter,3) = avg_fiber_len;
+    output_counts(i,1) = num_fibers;
+    output_counts(i,2) = num_nodes;
+    output_counts(i,3) = avg_fiber_len;
     
     if startsWith(basename, 'Right ')
         basename = extractAfter(basename, 6);
@@ -103,6 +95,9 @@ for i = tr_idx
         left_tract_ys2(right_tract_idx) = avg_fiber_len;
         left_tract_idx = left_tract_idx + 1;
     end
+    
+    tline = fgetl(fid);
+    i=i+1;
 end
 
 fclose(fileID);
