@@ -50,12 +50,14 @@ i=1;
 while ischar(tline)
     disp(tline);
     name=strrep(tline,'_',' ');
-    num_fibers = length(tracts(i).fibers);
+    tr_name=sprintf('config.tract%s',num2str(i));
+    tr_idx=eval(tr_name);
+    num_fibers = length(tracts(tr_idx).fibers);
     basename = name;
     
     num_nodes = 0;
     for j = 1 : num_fibers
-        tmp = length(tracts(i).fibers{j,1});
+        tmp = length(tracts(tr_idx).fibers{j,1});
         num_nodes = num_nodes + floor(tmp/coeff);  
     end 
     tot_fiber_len = step_size * (num_nodes - num_fibers);
