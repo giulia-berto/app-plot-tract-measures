@@ -2,9 +2,10 @@
 #PBS -k o
 #PBS -l nodes=1:ppn=1,walltime=0:30:00
 
-echo "Compute #streamlines, #nodes and average streamlines length and convert AFQ to trk."
+echo "Convert AFQ to trk and compute #streamlines, #nodes and average streamlines length."
+#matlab -nosplash -nodisplay -r afqConverter1
 #matlab -nosplash -nodisplay -r plot_bar_plots
-singularity exec docker://brainlife/mcr:neurodebian1604-r2017a bash -c "./compiled/plot_bar_plots && ./compiled/afqConverter1"
+singularity exec docker://brainlife/mcr:neurodebian1604-r2017a bash -c "./compiled/afqConverter1 && ./compiled/plot_bar_plots"
 ret=$?
 if [ ! $ret -eq 0 ]; then
 	echo "Computation failed"
