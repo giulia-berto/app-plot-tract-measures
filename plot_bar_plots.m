@@ -50,8 +50,12 @@ i=1;
 while ischar(tline)
     disp(tline);
     name=strrep(tline,'_',' ');
-    tr_name=sprintf('config.tract%s',num2str(i));
-    tr_idx=eval(tr_name);
+    if length(fg_classified) == 20
+	tr_idx = i;
+    else
+    	tr_name=sprintf('config.tract%s',num2str(i));
+    	tr_idx=eval(tr_name);
+    end
     num_fibers = length(tracts(tr_idx).fibers);
     basename = name;
     
